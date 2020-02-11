@@ -1,0 +1,619 @@
+<div class="background-image image-mundo"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col col-sm-6 col-lg-4">
+            <div class="card mt-4">
+                <div class="card-body mr-2">
+                    <div class="row justify-content-center mr-2">
+                        <div class="col-4">
+                            <button type="button" class="btn btn-indigo btn-norte" ng-click="entrenadorCtrl.moverNorteCtrl()">
+                                <i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mr-2">
+                        <div class="col-4">
+                            <button type="button" class="btn btn-indigo" ng-click="entrenadorCtrl.moverOesteCtrl()">
+                                <i class="fa fa-arrow-circle-left fa-3x" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-indigo" ng-click="entrenadorCtrl.moverEsteCtrl()">
+                                <i class="fa fa-arrow-circle-right fa-3x" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mr-2">
+                        <div class="col-4">
+                            <button type="button" class="btn btn-indigo" ng-click="entrenadorCtrl.moverSurCtrl()">
+                                <i class="fa fa-arrow-circle-down fa-3x" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 class="card-title">Ubicacion</h4>
+                    <p class="card-text">Presione los botones para moverse.</p>
+                    <div class="row justify-content-start">
+                        <div class="col-8 col-sm-8 col-lg-8 ml-5">
+                            <span class="imagen-pointer">
+                                <img src="src/icons/png/pointer.png" height="50em">
+                                <label>{{entrenadorCtrl.entrenador.ubicacion.x}}, {{entrenadorCtrl.entrenador.ubicacion.y}}
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-sm-6 col-lg-8 mt-4">
+            <div class="card">
+                <div class="alert alert-info" role="alert" ng-show="!entrenadorCtrl.equipoNoVacio()">
+                    Intenta atrapar tu primer pokemon para comenzar tu aventura!
+                </div>
+                <div class="tabs-wrapper">
+                    <ul class="nav nav-pills nav-fill nav-justified mt-3">
+                        <li class="nav-item">
+                            <a class="nav-link waves-light active" data-toggle="tab" href="#oponentes" role="tab" ng-show="entrenadorCtrl.equipoNoVacio()">
+                                <img src="src/icons/png/fist.png" height="70em">
+                                <br> Oponentes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-light" data-toggle="tab" href="#pokemon" role="tab">
+                                <img src="src/icons/png/pikachu1.png" height="70em">
+                                <br>Pok&eacute;mon</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-light" data-toggle="tab" href="#pokeparada" role="tab" ng-show="entrenadorCtrl.equipoNoVacio()">
+                                <img src="src/icons/png/map.png" height="70em">
+                                <br>Pokeparada</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade in show active" id="oponentes" role="tabpanel" ng-show="entrenadorCtrl.equipoNoVacio()">
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h4 class="card-title">Oponentes</h4>
+                                <table class="table table-hover table-bordered table-sm">
+                                    <thead class="mdb-color darken-3 text-white">
+                                        <tr>
+                                            <th>Entrenador</th>
+                                            <th>Pok&eacute;mon</th>
+                                            <th>Apuesta</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="oponente in entrenadorCtrl.oponentes">
+                                            <td>
+                                                <img src="src/icons/png/{{oponente.nombre}}1.png" height="40em">{{oponente.nombre}}
+                                            </td>
+                                            <td>
+                                                <img src="src/icons/png/{{oponente.pokemonesAtrapados[0].nombre.toLowerCase()}}.png" height="40em"> {{oponente.pokemonesAtrapados[0].nombre}}
+                                            </td>
+                                            <td>{{oponente.apuesta.toFixed(2)}}</td>
+                                            <td>
+                                                <a data-toggle="modal" data-target="#seleccionModal">
+                                                    <center>
+                                                        <img src="src/icons/png/battle.png" height="40em" class="BtnBatalla" ng-click="entrenadorCtrl.seleccionarOponente(oponente)">
+                                                    </center>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pokemon" role="tabpanel">
+                        <div class="card mt-2">
+                            <div class="card-body">
+                                <h4 class="card-title">Pok&eacute;mon</h4>
+                                <table class="table table-sm table-hover table-bordered">
+                                    <thead class="mdb-color darken-3 text-white">
+                                        <tr>
+                                            <th>Pok&eacute;mon</th>
+                                            <th>N&iacute;vel</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="pokemon in entrenadorCtrl.pokemones">
+                                            <td>
+                                                <img src="src/icons/png/{{pokemon.especie.nombre.toLowerCase()}}.png" height="40em"> {{pokemon.especie.nombre}}</td>
+                                            <td>{{pokemon.calcularNivel()}}</td>
+                                            <td>
+                                                <center>
+                                                    <a data-toggle="modal" data-target="#capturaModal">
+                                                        <img src="src/icons/png/pokeball.png" height="30em" ng-click="entrenadorCtrl.seleccionarPokemonSalvaje(pokemon)">
+                                                    </a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pokeparada" role="tabpanel" ng-show="entrenadorCtrl.equipoNoVacio()">
+                        <div class="card mt-2">
+                            <div class="card-body">
+                                <h4 class="card-title">Pokeparada</h4>
+                                <table class="table table-sm table-hover table-bordered">
+                                    <thead class="mdb-color darken-3 text-white">
+                                        <tr>
+                                            <th>Pokeparada</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="pokeparada in entrenadorCtrl.pokeparadas">
+                                            <td>{{pokeparada.nombre}}</td>
+                                            <td>
+                                                <center>
+                                                    <a data-toggle="modal" data-target="#curarSaludModal">
+                                                        <img src="src/icons/png/pokestop-1.png" height="40em" ng-click="entrenadorCtrl.seleccionarPokeparada(pokeparada)">
+                                                    </a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="batallaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">
+                    <strong>A Luchar!!</strong>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="image-estadio">
+                <div class="modal-body">
+                    <div class="container-fluid" style="margin-top:1em">
+                        <!--Grid row-->
+                        <div class="row">
+                            <!--Grid column-->
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="view overlay hm-white-slight">
+                                        <h5 class="card-title text-center">
+                                            <strong>{{entrenadorCtrl.oponenteSeleccionado.nombre}}</strong>
+                                        </h5>
+                                        <img src="src/icons/png/{{entrenadorCtrl.oponenteSeleccionado.nombre}}1.png" class="img-fluid">
+                                    </div>
+                                    <!--Card content-->
+                                    <div class="card-body">
+                                        <!--Title-->
+                                        <h5 class="card-title text-center">
+                                            <strong>Pokemon {{entrenadorCtrl.oponenteSeleccionado.pokemonesAtrapados[0].especie.nombre}}</strong>
+                                        </h5>
+                                        <!--Text-->
+                                        <img src="src/icons/png/{{entrenadorCtrl.oponenteSeleccionado.pokemonesAtrapados[0].nombre.toLowerCase()}}2.png" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="margin-top:4em">
+                                <div class="row">
+                                    <div class="card">
+                                        <div class="view overlay hm-white-slight">
+                                            <img src="src/icons/png/VS.png" class="img-fluid">
+                                            <center>
+                                                <a data-toggle="modal" data-target="#resultadoBatallaModal">
+                                                    <button type="button" class="btn btn-indigo" data-target="resultadoBatallaModal" ng-click="entrenadorCtrl.batalla()">Luchar!</button>
+                                                </a>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+
+                                <div class="card">
+                                    <div class="view overlay hm-white-slight">
+                                        <h5 class="card-title text-center">
+                                            <strong>Tu</strong>
+                                        </h5>
+                                        <img src="src/icons/png/Red2.png" class="img-fluid">
+                                    </div>
+                                    <!--Card content-->
+                                    <div class="card-body">
+                                        <!--Title-->
+                                        <h5 class="card-title text-center">
+                                            <strong>Pokemon {{entrenadorCtrl.pokemonPeleaSeleccionado.especie.nombre}}</strong>
+                                        </h5>
+                                        <!--Text-->
+                                        <img src="src/icons/png/{{entrenadorCtrl.pokemonPeleaSeleccionado.especie.nombre.toLowerCase()}}2.png" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="resultadoBatallaModal" tabindex="-1" role="dialog" aria-labelledby="resultadoBatallaModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" ng-show="entrenadorCtrl.resultadoBatalla">
+            <div class="modal-header">
+                <center>
+                    <h4 class="modal-title " id="exampleModalLabel">
+                        <strong>Resultado Del Combate</strong>
+                    </h4>
+                </center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h5>
+                        <strong>Felicidades has ganado {{entrenadorCtrl.oponenteSeleccionado.apuesta}}!</strong>
+                    </h5>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="entrenadorCtrl.setSeleccionNull()" onClick="closeAll('batallaModal', 'resultadoBatallaModal')">Volver a "El Mundo"</button>
+                </center>
+            </div>
+        </div>
+        <div class="modal-content" ng-show="!entrenadorCtrl.resultadoBatalla">
+            <div class="modal-header">
+                <center>
+                    <h4 class="modal-title " id="exampleModalLabel">
+                        <strong>Resultado Del Combate</strong>
+                    </h4>
+                </center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h5>
+                        <strong>Oops! Has perdido contra {{entrenadorCtrl.oponenteSeleccionado.nombre}}!</strong>
+                    </h5>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="entrenadorCtrl.setSeleccionNull()" onClick="closeAll('batallaModal', 'resultadoBatallaModal')">Volver a "El Mundo"</button>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="capturaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">
+                    <strong>Un Pokemon Salvaje ha aparecido, Atrapalo!!</strong>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="image-campo">
+                <div class="modal-body">
+                    <div class="container-fluid" style="margin-top:5em"></div>
+                    <center>
+                        <img src="src/icons/png/{{entrenadorCtrl.pokemonSalvajeSeleccionado.especie.nombre.toLowerCase()}}2.png" height="200em">
+                    </center>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 mb-6">
+                            <div class="container-fluid">
+                                <div class="card">
+                                    <div class="view overlay hm-white-slight">
+                                        <div class="card-body">
+                                            <center>
+                                                <table class="table table-sm table-hover table-bordered table-responsive">
+                                                    <tbody>
+                                                        <td ng-repeat="(elemento, cantidad) in entrenadorCtrl.entrenador.inventario | inventarioCaptura">
+                                                            <center>
+                                                                <a data-toggle="modal" data-target="#atrapadoModal">
+                                                                    <img src="src/icons/png/{{elemento.toLowerCase()}}.png" height="50em" ng-click="entrenadorCtrl.seleccionarPokeball(elemento)"> {{cantidad}}
+                                                                </a>
+                                                            </center>
+                                                        </td>
+                                                    </tbody>
+                                                </table>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="atrapadoModal" tabindex="-1" role="dialog" aria-labelledby="atrapadoModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" ng-show="entrenadorCtrl.resultadoCaptura">
+            <div class="modal-header">
+                <center>
+                    <h4 class="modal-title " id="exampleModalLabel">
+                        <strong>Resultado de Captura</strong>
+                    </h4>
+                </center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h5>
+                        <strong>Felicidades has capturado un {{entrenadorCtrl.pokemonSalvajeSeleccionado.especie.nombre}} !</strong>
+                    </h5>
+                </div>
+                <center>
+                    <h6 class="black-text" style="padding-bottom: 1em">
+                        <strong>Datos del Pok&eacute;mon atrapado!</strong>
+                    </h6>
+                </center>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="src/icons/png/{{entrenadorCtrl.pokemonSalvajeSeleccionado.especie.nombre.toLowerCase()}}.png" class="img-fluid">
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="black-text">
+                                <strong>PS :</strong>{{entrenadorCtrl.pokemonSalvajeSeleccionado.puntosDeVida}}</h6>
+                            <h6 class="black-text">
+                                <strong>Especie :</strong>{{entrenadorCtrl.pokemonSalvajeSeleccionado.especie.nombre}}</h6>
+                            <h6 class="black-text">
+                                <strong>Tipo :</strong>{{entrenadorCtrl.pokemonSalvajeSeleccionado.especie.tipos[0].nombre}}</h6>
+                            <h6 class="black-text">
+                                <strong>Nombre :</strong>{{entrenadorCtrl.pokemonSalvajeSeleccionado.nombre}}</h6>
+                            <h6 class="black-text">
+                                <strong>Nivel :</strong>{{entrenadorCtrl.pokemonSalvajeSeleccionado.calcularNivel()}}</h6>
+                            <h6 class="black-text">
+                                <strong>Experiencia :</strong>{{entrenadorCtrl.pokemonSalvajeSeleccionado.experiencia}}</h6>
+                            <h6 class="black-text">
+                                <strong>Genero :</strong>{{entrenadorCtrl.pokemonSalvajeSeleccionado.genero}}</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <center>
+                            <h5 class="black-text">
+                                <strong>Quieres ponerle un nombre a tu {{entrenadorCtrl.pokemonSalvajeSeleccionado.especie.nombre}}
+                                    atrapado?
+                                </strong>
+                            </h5>
+                        </center>
+                    </div>
+                    <center>
+                        <a data-toggle="modal" data-target="#cambiarNombreModal">
+                            <button class="btn btn-primary">Si</button>
+                        </a>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="entrenadorCtrl.setSeleccionNull()" onClick="closeAll('capturaModal', 'atrapadoModal')">No, Volver a "El Mundo"</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div class="modal-content" ng-show="!entrenadorCtrl.resultadoCaptura">
+            <div class="modal-header">
+                <center>
+                    <h4 class="modal-title " id="exampleModalLabel">
+                        <strong>Oops!</strong>
+                    </h4>
+                </center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h5>
+                        <strong>El pokemon {{entrenadorCtrl.pokemonSalvajeSeleccionado.especie.nombre}} a escapado de la pokeball.</strong>
+                    </h5>
+                </div>
+                <div class="container">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="closeAll('atrapadoModal')">Intentar otra vez!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cambiarNombreModal" tabindex="-1" role="dialog" aria-labelledby="cambiarNombreModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">
+                    <strong>Cual sera el nuevo nombre de tu {{entrenadorCtrl.pokemonSalvajeSeleccionado.especie.nombre}} atrapado?</strong>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nombrePokemon">Nuevo Nombre:</label>
+                    <input type="nombrePokemon" class="form-control" id="nombrePokemon" placeholder="Nombre" name="nombrePokemon" ng-model="entrenadorCtrl.nombrePokemon">
+                </div>
+                <button class="btn btn-primary" ng-click="entrenadorCtrl.cambiarNombrePokemonSeleccionado()" onClick="closeAll('capturaModal', 'atrapadoModal', 'cambiarNombreModal')">Aceptar Cambio</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="curarSaludModal" tabindex="-1" role="dialog" aria-labelledby="curarSaludModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">
+                    <strong>Bienvenido a la Pokeparada {{entrenadorCtrl.pokeparadaSeleccionada.nombre}}!</strong>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="image-pokeCenter">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2 mb-4" ng-repeat="pokemon in entrenadorCtrl.entrenador.equipo track by $index">
+                            <div class="card">
+                                <img src="src/icons/png/{{pokemon.especie.nombre.toLowerCase()}}2.png" class="img-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="container-fluid" style="margin-top:1em">
+                                            <p class="black-text">
+                                                <strong>Vida: </strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="progress" style="height: 1.3em">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                                    aria-valuemax="100" ng-style="{ 'width': pokemon.calcularPorcentajeVida() + '%'} "
+                                                    style="background-color: green; height: 1.3em;">{{pokemon.calcularPorcentajeVida()}}%
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a data-toggle="modal" data-target="#curadoModal">
+                                <button class="btn btn-primary" ng-click="entrenadorCtrl.curarPokemones()">Curar</button>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a data-toggle="modal" data-target="#curarSaludModal">
+                                <button class="btn btn-danger" onclick="closeAll()">Cancelar</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="curadoModal" tabindex="-1" role="dialog" aria-labelledby="curadoModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">
+                    <strong>Resultado de La Curacion</strong>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>
+                    <strong>Felicidades has curado a tus Pokemones!</strong>
+                </h5>
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="entrenadorCtrl.setSeleccionNull()" onClick="closeAll('curarSaludModal', 'curadoModal')">Volver a "El Mundo"</button>
+
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="seleccionModal" tabindex="-1" role="dialog" aria-labelledby="seleccionModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">
+                    <strong>Selecciona con que pokemon deseas luchar!</strong>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div ng-repeat="pokemon in entrenadorCtrl.entrenador.equipo track by $index">
+                        <div class="col-md-2 mb-4">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <div class="row">
+                                        <div class="col-md-2 mb-4">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" ng-click="entrenadorCtrl.seleccionarPokemonPelea(pokemon)">
+                                            <img src="src/icons/png/{{pokemon.especie.nombre.toLowerCase()}}.png" height="25em">
+                                            <h6>{{pokemon.nombre}}</h6>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <center>
+                    <img src="src/icons/png/{{entrenadorCtrl.pokemonPeleaSeleccionado.especie.nombre.toLowerCase()}}2.png" height="150em">
+                    <div ng-show="entrenadorCtrl.pokemonConVida()">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="black-text">
+                                    <strong>Vida: </strong>
+                                </p>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="progress" style="height: 1.3em">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                        aria-valuemax="100" ng-style="{ 'width': entrenadorCtrl.pokemonPeleaSeleccionado.calcularPorcentajeVida() + '%'} "
+                                        style="background-color: green; height: 1.3em;">{{entrenadorCtrl.pokemonPeleaSeleccionado.calcularPorcentajeVida()}}%</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="black-text">
+                                    <strong>Exp: </strong>
+                                </p>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="progress" style="height: 1.3em">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                        aria-valuemax="100" ng-style="{ 'width': entrenadorCtrl.pokemonPeleaSeleccionado.calcularPorcentajeExperiencia() + '%'} "
+                                        style=" background-color: #2665bf ; height: 1.3em;">{{entrenadorCtrl.pokemonPeleaSeleccionado.calcularPorcentajeExperiencia()}}%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+            <div class="alert alert-info" role="alert" ng-show="!entrenadorCtrl.pokemonConVida()">
+                Tu pokemon {{entrenadorCtrl.pokemonPeleaSeleccionado.nombre}} esta exausto!
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <a data-toggle="modal" data-target="#batallaModal">
+                        <button class="btn btn-primary" data-dismiss="modal" ng-show="entrenadorCtrl.pokemonConVida()">Seleccionar</button>
+                    </a>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>

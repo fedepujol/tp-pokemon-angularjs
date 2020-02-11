@@ -1,0 +1,45 @@
+.background-image {
+    background-size: cover;
+    display: block;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 0;
+}
+
+.image-mundo {
+    background-size: cover;
+    background-image: url("../icons/png/mapa.jpg");
+}
+
+.image-estadio {
+    background-image: url("../icons/png/estadio.jpg")
+}
+
+.image-campo {
+    background-image: url("../icons/png/campo.jpg");
+}
+
+.image-entrenador {
+    background-image: url("../icons/png/images.jpg");
+    background-size: auto;
+}
+
+.image-pokeCenter {
+    background-image: url("../icons/png/centropokemon.jpg")
+}
+
+.container-fluid {
+    margin-top: 4em;
+}
+
+.textcenter {
+    text-align: center;
+}
+
+.textcenter img {
+    display: inline-block;
+}

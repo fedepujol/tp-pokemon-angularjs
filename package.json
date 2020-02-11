@@ -1,0 +1,45 @@
+{
+  "name": "tp-pokemon-angular-grupo-1",
+  "version": "1.1.0",
+  "description": "TP Pokemon Web Grupo1",
+  "main": "''",
+  "scripts": {
+    "prestart": "npm install",
+    "postinstall": "",
+    "start": "http-server -p 8000 -c-1",
+    "test": "./node_modules/.bin/karma start karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/algo3-unsam/tp-pokemon-angular-grupo-1"
+  },
+  "keywords": [
+    "Pokemon",
+    "Grupo1",
+    "Angular"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.6",
+    "angular-ui-router": "^1.0.0",
+    "http-server": "^0.8.0",
+    "underscore": "1.8.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jasmine-core": "^2.6.4",
+    "karma": "^1.7.1",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4"
+  },
+  "babel": {}
+}

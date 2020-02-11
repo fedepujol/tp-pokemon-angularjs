@@ -1,0 +1,176 @@
+<div class="background-image image-entrenador"></div>
+<div class="container-fluid" style="margin-top:5em">
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="view overlay hm-white-slight">
+                    <img src="src/icons/png/Red-pokemon-players-34224337-430-500.jpg" class="img-fluid">
+                    <a href="#">
+                        <div class="mask"></div>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                        <strong>Tarjeta de Entrenador</strong>
+                    </h5>
+                    <p class="card-text">
+                        <h6 class="black-text">
+                            <strong>Nombre: </strong>{{entrenadorCtrl.entrenador.nombre}} </h6>
+                        <h6 class="black-text">
+                            <strong>Dinero: </strong>{{entrenadorCtrl.entrenador.dinero.toFixed(2)}}</h6>
+                        <h6 class="black-text">
+                            <strong>Experiencia: </strong>{{entrenadorCtrl.entrenador.experiencia}}</h6>
+                        <h6 class="black-text">
+                            <strong>Nivel: </strong>{{entrenadorCtrl.entrenador.calcularNivel()}}</h6>
+                        <h6 class="black-text">
+                            <strong>Perfil: </strong>
+                            {{entrenadorCtrl.entrenador.perfil}}</h6>
+                    </p>
+                </div>
+            </div>
+            <div class="mask"></div>
+        </div>
+        <div class="col-md-9 mb-4">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="black-text">
+                                <strong>Pok&eacute;mones Atrapados</strong>
+                            </h6>
+                            <div class="alert alert-info" role="alert" ng-show="!entrenadorCtrl.equipoNoVacio()">
+                                Vuelve a la pantalla "El Mundo" para atrapar tu primer pokemon!
+                            </div>
+                            <table class="table table-hover table-bordered" ng-show="entrenadorCtrl.equipoNoVacio()">
+                                <thead class="mdb-color darken-3">
+                                    <tr class="text-white">
+                                        <th>Pokemon</th>
+                                        <th>Nivel</th>
+                                        <th>Equipo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="pokemonAtrapado in entrenadorCtrl.entrenador.pokemonesAtrapados track by $index">
+                                        <td>
+                                            <img src="src/icons/png/{{pokemonAtrapado.especie.nombre.toLowerCase()}}.png" height="25em">
+                                            <a ng-click="entrenadorCtrl.seleccionarPokemon(pokemonAtrapado)"> {{pokemonAtrapado.nombre}} </a>
+                                        </td>
+                                        <td>{{pokemonAtrapado.calcularNivel()}}</td>
+                                        <td>
+                                            <center>
+                                                <img ng-show="pokemonAtrapado.estado" src="src/icons/png/star-1.png" height="20em">
+                                            </center>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h6 class="black-text">
+                                <strong>Inventario</strong>
+                            </h6>
+                            <table class="table table-hover table-bordered">
+                                <thead class="mdb-color darken-3">
+                                    <tr class="text-white">
+                                        <th>Item</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="(elemento, cantidad) in entrenadorCtrl.entrenador.inventario | inventario">
+                                        <td>
+                                            <img src="src/icons/png/{{elemento.toLowerCase()}}.png" height="25em"> {{elemento}}</td>
+                                        <td>{{cantidad}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="black-text" style="padding-bottom: 1em">
+                                <strong>Datos del Pok&eacute;mon Seleccionado</strong>
+                            </h6>
+                            <div class="container">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="src/icons/png/pokedex2.png" class="img-fluid" ng-show="entrenadorCtrl.pokemonSeleccionadoNulo()">
+                                        <img src="src/icons/png/{{entrenadorCtrl.pokemonSeleccionado.especie.nombre.toLowerCase()}}2.png" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="black-text">
+                                            <strong>PS: </strong>{{entrenadorCtrl.pokemonSeleccionado.puntosDeVida}}</h6>
+                                        <h6 class="black-text">
+                                            <strong>Especie: </strong>{{entrenadorCtrl.pokemonSeleccionado.especie.nombre}}</h6>
+                                        <h6 class="black-text">
+                                            <strong>Tipo: </strong>{{entrenadorCtrl.pokemonSeleccionado.especie.tipos[0].nombre}}</h6>
+                                        <h6 class="black-text">
+                                            <strong>Nombre: </strong>{{entrenadorCtrl.pokemonSeleccionado.nombre}}</h6>
+                                        <h6 class="black-text">
+                                            <strong>Nivel: </strong>{{entrenadorCtrl.pokemonSeleccionado.calcularNivel()}}</h6>
+                                        <h6 class="black-text">
+                                            <strong>Experiencia: </strong>{{entrenadorCtrl.pokemonSeleccionado.experiencia}}</h6>
+                                        <h6 class="black-text">
+                                            <strong>Genero: </strong>{{entrenadorCtrl.pokemonSeleccionado.genero}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <p class="black-text">
+                                        <strong>Vida: </strong>
+                                    </p>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="progress" style="height: 1.3em">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                            aria-valuemax="100" ng-style="{ 'width': entrenadorCtrl.pokemonSeleccionado.calcularPorcentajeVida() + '%'} "
+                                            style="background-color: green; height: 1.3em;">{{entrenadorCtrl.pokemonSeleccionado.calcularPorcentajeVida()}}%</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <p class="black-text">
+                                        <strong>Exp: </strong>
+                                    </p>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="progress" style="height: 1.3em">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                            aria-valuemax="100" ng-style="{ 'width': entrenadorCtrl.pokemonSeleccionado.calcularPorcentajeExperiencia() + '%'} "
+                                            style=" background-color: #2665bf ; height: 1.3em;">{{entrenadorCtrl.pokemonSeleccionado.calcularPorcentajeExperiencia()}}%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">
+                                    <strong>Redes Sociales</strong>
+                                </h5>
+                                <div class="row">
+                                    <div class="col-md-4 textcenter">
+                                        <a href="https://es-la.facebook.com/" target="blank">
+                                            <img src="src/icons/png/squirtle-facebook-icon.png" height="60em">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 textcenter">
+                                        <a href="https://twitter.com/?lang=es" target="blank">
+                                            <img src="src/icons/png/pidgey-twitter-icon.png" height="60em">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 textcenter">
+                                        <a href="https://www.instagram.com/?hl=es" target="blank">
+                                            <img src="src/icons/png/charmander-instagram-icon.png" height="60em">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

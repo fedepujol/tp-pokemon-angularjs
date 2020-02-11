@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="pokemonAlgoApp">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Pok&eacute;mon</title>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+	<!-- Bootstrap core CSS -->
+	<link href="src/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Material Design Bootstrap -->
+	<link href="src/css/mdb.min.css" rel="stylesheet">
+	<!-- Your custom styles (optional) -->
+	<link href="src/css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<link rel="icon" href="src/icons/png/pokeball.png">
+</head>
+
+<body style="padding-right:0em">
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-light cyan lighten-2 fixed-top" ng-controller="NavController as navCtrl">
+		<!-- NavController controlador del navBar (donde van a bindear los botones) -->
+		<span class="navbar-brand">
+			<img src="src/icons/png/pokemonLogo.png" height="40em">
+		</span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo02"
+		    aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+			<ul class="navbar-nav ml-auto mt-lg-0">
+				<li class="nav-item">
+					<a class="nav-link" ng-click="navCtrl.elMundo()">
+						<img src="src/icons/png/compass.png" height="40em" /> El Mundo
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" ng-click="navCtrl.entrenador()">
+						<img src="src/icons/png/pokemon-trainer.png" height="40em"> Entrenador
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<!--Fin Navbar -->
+
+	<main ui-view></main>
+
+	<!-- PokemonAlgoApp js -->
+	<script type="text/javascript" src="node_modules/angular/angular.js"></script>
+	<script type="text/javascript" src="node_modules/underscore/underscore.js"></script>
+	<script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="src/dominio/errorHandler.js"></script>
+	<script type="text/javascript" src="src/dominio/Pokemon.js"></script>
+	<script type="text/javascript" src="src/dominio/Pokeparada.js"></script>
+	<script type="text/javascript" src="src/dominio/Tipo.js"></script>
+	<script type="text/javascript" src="src/dominio/Especie.js"></script>
+	<script type="text/javascript" src="src/dominio/TablaNiveles.js"></script>
+	<script type="text/javascript" src="src/dominio/Entrenador.js"></script>
+	<script type="text/javascript" src="src/dominio/Services.js"></script>
+	<script type="text/javascript" src="src/controller/entrenador.js"></script>
+	<script type="text/javascript" src="src/dominio/routes.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+
+	<!-- JQuery -->
+	<script type="text/javascript" src="src/js/jquery-3.1.1.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="src/js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="src/js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="src/js/mdb.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<script>
+		function closeAll(unModal, otroModal) {
+			close(unModal);
+			close(otroModal);
+		}
+	</script>
+	<script>
+		function closeAll(unModal, otroModal, otroModal2) {
+			close(unModal);
+			close(otroModal);
+			close(otroModal2);
+		}
+	</script>
+	<script>
+		function close(unModal) {
+			$('#' + unModal).modal('hide');
+			$('body').animate({paddingRight: "0em"});
+		}
+	</script>
+</body>
+
+</html>
