@@ -24,7 +24,7 @@
     "angular": "^1.8.0",
     "angular-ui-router": "^1.0.0",
     "http-server": "^14.1.1",
-    "underscore": "1.8.3"
+    "underscore": "1.12.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
